@@ -1,0 +1,8 @@
+
+librosa
+numpy
+scikit-learn
+streamlit
+mysql-connector-python
+soundfile
+pandas
