@@ -67,17 +67,17 @@ def search_similar_sound(query_file_path, top_k=5):
         print(f"{i}. Loài: {res['animal_name']} | File: {res['filename']} | Độ tương đồng: {res['similarity']:.4f}")
 
 if __name__ == "__main__":
-    # Tự động lấy ngẫu nhiên 1 file bất kỳ đang có trong database để làm mẫu tìm kiếm thử
+    # Lấy ngẫu nhiên 1 file bất kỳ trong database bằng ORDER BY RAND()
     conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
-    cursor.execute("SELECT filename FROM animal_sounds LIMIT 1")
+    cursor.execute("SELECT filename FROM animal_sounds ORDER BY RAND() LIMIT 1")
     row = cursor.fetchone()
     cursor.close()
     conn.close()
     
     if row:
         test_query_file = row[0]
-        print(f"Đã tự động chọn file mẫu từ CSDL: {test_query_file}")
+        print(f"Đã tự động chọn ngẫu nhiên file mẫu từ CSDL: {test_query_file}")
         search_similar_sound(test_query_file, top_k=5)
     else:
         print("Cơ sở dữ liệu chưa có file nào!")
